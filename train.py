@@ -101,7 +101,7 @@ def load_val_batch(dict_words_boxes, batch, word_to_ix, device):
     targets = []
 
     for img in batch:
-        vggs = torch.load("./data/ha_bbox_vggs/" + img + ".pt").to(device)
+        vggs = torch.load("data/ha_bbox_vggs/" + img + ".pt").to(device)
         for obj in dict_words_boxes[img]:
             language_input.append(get_word_ix(word_to_ix, dict_words_boxes[img][obj]["word"]))
 
@@ -138,7 +138,7 @@ def curiosity(i, o, condition="normal"):
 
 
 def load_img(dict_words_boxes, ha_vggs_indices, img):
-    vggs = torch.load("./data/ha_bbox_vggs/" + img + ".pt").to(device)  # Edit path
+    vggs = torch.load("data/ha_bbox_vggs/" + img + ".pt").to(device)  # Edit path
     # dict met obj ids als keys en een dictionary met words : '', bboxes :
     n = 0
     bbox_indices = []
@@ -357,23 +357,23 @@ def dict_to_batches(no_objs_split, bsz):
 ###############################################################################
 
 # Object vgg indices (object information)
-with open("./data/ha_vgg_indices.json", "rb") as input_file:
+with open("data/ha_vgg_indices.json", "rb") as input_file:
     ha_vggs_indices = json.load(input_file)
 
 # Regular data (dictionary with all images and their object ids, corresponding words)
-with open("./data/dict_words_boxes.json", "rb") as input_file:
+with open("data/dict_words_boxes.json", "rb") as input_file:
     dict_words_boxes = json.load(input_file)
 
 # Train split, image ids
-with open("./data/train_data.txt", "rb") as fp:
+with open("data/train_data.txt", "rb") as fp:
     train_data = pickle.load(fp)
 
 # Validation split, image ids
-with open("./data/validation_data.txt", "rb") as fp:
+with open("data/validation_data.txt", "rb") as fp:
     validation_data = pickle.load(fp)
 
 # Test split, image ids
-with open("./data/test_data.txt", "rb") as fp:
+with open("data/test_data.txt", "rb") as fp:
     test_data = pickle.load(fp)
 
 ###############################################################################
